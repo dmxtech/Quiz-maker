@@ -4,12 +4,18 @@ const highscore = document.getElementById("highscores");
 const start = document.getElementById("start");
 const startbtn = document.getElementById("startbtn");
 const quiz = document.getElementById("quiz");
-//const questions = document.getElementById("questions");
+const renderquestions = document.getElementById("questions");
 const BtnA = document.getElementById("answ1");
-const BtnB = document.getElementById("answ1");
-const BtnC = document.getElementById("answ1");
-const BtnD = document.getElementById("answ1");
+const BtnB = document.getElementById("answ2");
+const BtnC = document.getElementById("answ3");
+const BtnD = document.getElementById("answ4");
+const begining = document.getElementById("begining");
 
+
+function startQuiz() {
+    start.style.display = "none";
+    generateQuestion();
+}
 //Todays date 
 var timerfunct = setInterval(function () {
     var d = new Date();
@@ -89,21 +95,32 @@ const questions = [
     },
 
 ];
-const questionIndex = questions.length;
-const currentquestion = 0;
-// function to create the questions & answers
-function generateQuizQuestion() {
+const Finalquestions = questions.length;
+const currentquestions = 0;
 
-    if (currentquestion === questionIndex) {
+function showScore() {
+    questions.style.display = "none"
+    clearInterval(timerfunct);
+    initials.value = "";
+    finalscore.innerHTML = "Your score is: " + score + " out of " + questions.length;
+}
+// function to create the questions & answers
+function generateQuestion() {
+
+    if (currentquestions === Finalquestions) {
         return showScore();
     }
-    const currentquestion = quizQuestions[questionIndex];
-    questions.innerHTML = "<p>" + currentquestion.question + "</p>";
+    const currentquestion = questions[currentquestions];
+    console.log(currentquestion);
+    renderquestions.innerHTML = "<p>" + currentquestion.question + "</p>";
     BtnA.innerHTML = currentquestion.choiceA;
     BtnB.innerHTML = currentquestion.choiceB;
     BtnC.innerHTML = currentquestion.choiceC;
     BtnD.innerHTML = currentquestion.choiceD;
 };
+
+
+start.addEventListener("click", startQuiz);
 
 
 
