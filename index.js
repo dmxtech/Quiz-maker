@@ -9,7 +9,7 @@ const BtnA = document.getElementById("answ1");
 const BtnB = document.getElementById("answ2");
 const BtnC = document.getElementById("answ3");
 const BtnD = document.getElementById("answ4");
-const begining = document.getElementById("begining");
+
 
 
 function startQuiz() {
@@ -26,8 +26,9 @@ var timerfunct = setInterval(function () {
     //console.log(timeleft);
     var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
     console.log(seconds);
-    document.getElementById("timer").innerHTML = seconds + "s"
-    if (timeleft < 0) {
+
+    document.getElementById("timer").innerHTML = "Time left:" + seconds + "s"
+    if (timeleft === 10) {
         clearInterval(timerfunct);
         document.getElementById("timer").innerHTML = ""
         document.getElementById("end").innerHTML = "TIME UP!!";
@@ -43,7 +44,7 @@ const questions = [
         choiceB: "False &lt;p&gt;",
         choiceC: "False &lt;div&gt;",
         choiceD: "None of the above",
-        correctAnswer: "a"
+        correctAnswer: "answ1"
     },
     {
         question: "What is used for front end of a web page?",
@@ -51,7 +52,7 @@ const questions = [
         choiceB: "HTML, CSS",
         choiceC: "Doordash",
         choiceD: "Bootstrap",
-        correctAnswer: "b"
+        correctAnswer: "answ2"
     },
     {
         question: "What HTML tags are JavaScript code wrapped in?",
@@ -59,7 +60,7 @@ const questions = [
         choiceB: "&lt;link&gt;",
         choiceC: "&lt;head&gt;",
         choiceD: "&lt;script&gt;",
-        correctAnswer: "d"
+        correctAnswer: "answ4"
     },
     {
         question: "Where do you maintain your repositories in the course?",
@@ -67,7 +68,7 @@ const questions = [
         choiceB: "git lab",
         choiceC: "my usb",
         choiceD: "Github, my pc & gitlab",
-        correctAnswer: "d"
+        correctAnswer: "answ4"
     },
     {
         question: "What is the best search engine on the internet?",
@@ -75,7 +76,7 @@ const questions = [
         choiceB: "Facebook",
         choiceC: "Tiktok",
         choiceD: "Ford",
-        correctAnswer: "a"
+        correctAnswer: "answ1"
     },
     {
         question: "How do you upload your files to git hub on the terminal?",
@@ -83,7 +84,7 @@ const questions = [
         choiceB: "send whatsapp to git hub",
         choiceC: "git init - git add - git commit",
         choiceD: "call git hub",
-        correctAnswer: "c"
+        correctAnswer: "answ3"
     },
     {
         question: "What does HTML stand for?",
@@ -91,33 +92,58 @@ const questions = [
         choiceB: "Hyper Text Marketing Language",
         choiceC: "Hyper Text Markup Language",
         choiceD: "Hyper Text Markup Leveler",
-        correctAnswer: "c"
+        correctAnswer: "answ3"
     },
 
 ];
-const Finalquestions = questions.length;
-const currentquestions = 0;
+const Finalquestionsi = questions.length;
+var score = 0;
+var indexquestions = 0;
+var correct;
+// function to create the questions & answers
+function generateQuestion() {
+    console.log("finalquestionsindex", Finalquestionsi);
+    console.log("indexquest", indexquestions);
+    if (indexquestions === Finalquestionsi) {
+        return showScore();
+    }
+    let currentquestion = questions[indexquestions];
+    console.log("currentquestion", currentquestion);
+    renderquestions.innerHTML = "<p>" + currentquestion.question + "</p>";
+    BtnA.innerHTML = currentquestion.choiceA;
+    BtnA.addEventListener("click", reviewanswers);
+    BtnB.innerHTML = currentquestion.choiceB;
+    BtnB.addEventListener("click", reviewanswers);
+    BtnC.innerHTML = currentquestion.choiceC;
+    BtnC.addEventListener("click", reviewanswers);
+    BtnD.innerHTML = currentquestion.choiceD;
+    BtnD.addEventListener("click", reviewanswers);
+};
+function reviewanswers(answer) {
 
+    correct = questions[0].correctAnswer;
+    console.log("answers", correct);
+    if (answer === correct) {
+        score++;
+        alert("That is the correct answer");
+        indexquestions++;
+        generateQuestion();
+        //alert window of incorrect answer
+    } else if (answer !== correct) {
+        alert("WROOOOOONG!!")
+        indexquestions++;
+        generateQuestion();
+
+    } else {
+        showScore();
+    }
+}
 function showScore() {
     questions.style.display = "none"
     clearInterval(timerfunct);
     initials.value = "";
     finalscore.innerHTML = "Your score is: " + score + " out of " + questions.length;
 }
-// function to create the questions & answers
-function generateQuestion() {
-
-    if (currentquestions === Finalquestions) {
-        return showScore();
-    }
-    const currentquestion = questions[currentquestions];
-    console.log(currentquestion);
-    renderquestions.innerHTML = "<p>" + currentquestion.question + "</p>";
-    BtnA.innerHTML = currentquestion.choiceA;
-    BtnB.innerHTML = currentquestion.choiceB;
-    BtnC.innerHTML = currentquestion.choiceC;
-    BtnD.innerHTML = currentquestion.choiceD;
-};
 
 
 start.addEventListener("click", startQuiz);
