@@ -15,11 +15,13 @@ const showhs = document.getElementById("showhs");
 //const answer = document.getElementById("answer");
 
 quiz.style.display = "none";
+timer.style.display = "inline";
+highscores.style.display = "inline";
 //finalscore.style.display = "none";
 function startQuiz() {
     quiz.style.display = "inline";
     finalscore.style.display = "inline";
-    //clearInterval(timerfunct);
+
     start.style.display = "none";
 
     generateQuestion();
@@ -45,6 +47,7 @@ function startQuiz() {
             start.style.display = "none";
             quiz.style.display = "none";
 
+
         }
     }, 1000)
 }
@@ -67,46 +70,46 @@ const questions = [
         choiceD: "Bootstrap",
         correctAnswer: "B"
     },
-    {
-        question: "What HTML tags are JavaScript code wrapped in?",
-        choiceA: "&lt;div&gt;",
-        choiceB: "&lt;link&gt;",
-        choiceC: "&lt;head&gt;",
-        choiceD: "&lt;script&gt;",
-        correctAnswer: "D"
-    },
-    {
-        question: "Where do you maintain your repositories in the course?",
-        choiceA: "my pc",
-        choiceB: "git lab",
-        choiceC: "my usb",
-        choiceD: "Github, my pc & gitlab",
-        correctAnswer: "D"
-    },
-    {
-        question: "What is the best search engine on the internet?",
-        choiceA: "Google",
-        choiceB: "Facebook",
-        choiceC: "Tiktok",
-        choiceD: "Ford",
-        correctAnswer: "A"
-    },
-    {
-        question: "How do you upload your files to git hub on the terminal?",
-        choiceA: "email git hub",
-        choiceB: "send whatsapp to git hub",
-        choiceC: "git init - git add - git commit",
-        choiceD: "call git hub",
-        correctAnswer: "C"
-    },
-    {
-        question: "What does HTML stand for?",
-        choiceA: "Hyper Trainer Marking Language",
-        choiceB: "Hyper Text Marketing Language",
-        choiceC: "Hyper Text Markup Language",
-        choiceD: "Hyper Text Markup Leveler",
-        correctAnswer: "C"
-    },
+    // {
+    //     question: "What HTML tags are JavaScript code wrapped in?",
+    //     choiceA: "&lt;div&gt;",
+    //     choiceB: "&lt;link&gt;",
+    //     choiceC: "&lt;head&gt;",
+    //     choiceD: "&lt;script&gt;",
+    //     correctAnswer: "D"
+    // },
+    // {
+    //     question: "Where do you maintain your repositories in the course?",
+    //     choiceA: "my pc",
+    //     choiceB: "git lab",
+    //     choiceC: "my usb",
+    //     choiceD: "Github, my pc & gitlab",
+    //     correctAnswer: "D"
+    // },
+    // {
+    //     question: "What is the best search engine on the internet?",
+    //     choiceA: "Google",
+    //     choiceB: "Facebook",
+    //     choiceC: "Tiktok",
+    //     choiceD: "Ford",
+    //     correctAnswer: "A"
+    // },
+    // {
+    //     question: "How do you upload your files to git hub on the terminal?",
+    //     choiceA: "email git hub",
+    //     choiceB: "send whatsapp to git hub",
+    //     choiceC: "git init - git add - git commit",
+    //     choiceD: "call git hub",
+    //     correctAnswer: "C"
+    // },
+    // {
+    //     question: "What does HTML stand for?",
+    //     choiceA: "Hyper Trainer Marking Language",
+    //     choiceB: "Hyper Text Marketing Language",
+    //     choiceC: "Hyper Text Markup Language",
+    //     choiceD: "Hyper Text Markup Leveler",
+    //     correctAnswer: "C"
+    // },
 
 ];
 let Finalquestionsi = questions.length;
@@ -125,6 +128,7 @@ function generateQuestion() {
     //let i, len, text;
     // for (i = 0, len = currentquestion.length, text = ""; i < len; i++) {
     if (indexquestions === Finalquestionsi) {
+
         return showScore();
     }
 
@@ -168,6 +172,7 @@ function reviewanswers(answer) {
 }
 //highscore.addEventListener("click", showScore());
 function showScore() {
+
     quiz.style.display = "none";
     //clearInterval(timerfunct);
     let scorename;
@@ -186,26 +191,41 @@ function showScore() {
     console.log("finalscore", score);
     console.log("hsname", hsname);
     hsname.innerHTML = scorename;
+
     const scoredata = {
         name: currentuser,
-        result: score
+        score: score
     };
+    const highScores = JSON.parse(localStorage.getItem(scoredata[0])) ?? [];
+    console.log("scoredata", scoredata);
+    console.log("highScores", highScores);
+    highScores.push(scoredata);
     //localStorage.setItem(currentuser, score);
     localStorage.setItem('scoredata', JSON.stringify(scoredata));
+    getScore();
 }
 
 function getScore() {
-    JSON.parse(hsname.localStorage.getItem('scoredata'));
-    //const viewhs = JSON.parse(localStorage.getItem(currentuser, score));
-    // $("#hr9 .Description").val(localStorage.getItem("hr9"));
-    console.log("scoredata", hsname);
-    console.log("highscore", highscore);
-    //console.log("viewhs", viewhs);
+
+    var highscores = JSON.parse(localStorage.getItem('scoredata')) ?? [];
+    showhs.innerHTML = highscores;
+    console.log("highscore", highscores);
+    for (i = 0; i < highscores.length; i++) {
+        var scorespan = document.createElement("li");
+        console.log("scorespan", scorespan);
+        scorespan.textContent = highscores[i].name;
+        console.log("highscores[i]", highscores[i]);
+        showhs.appendChild(scorespan);
+        //console.log("scoredata", scoredata);
+
+        //console.log("viewhs", viewhs);
+    }
 }
 highscore.addEventListener("click", getScore);
 start.addEventListener("click", startQuiz);
 
-
+//todo fix push on showscore
+//todo render highscores on showhighscores/ showsh
 
 
 
