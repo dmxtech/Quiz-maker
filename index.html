@@ -12,7 +12,7 @@
 <body>
     <div id="date">Today is:</div>
     <div id="timer"> Time: </div>
-    <div id="highscores" onclick="showHighscore()">View highscores</div>
+    <button id="highscores">View highscores</button>
     <div id="start">
         <h2>Please click Start quiz to begin.</h2>
         <button id="startbtn">Start quiz</button>
@@ -22,11 +22,14 @@
         <div id="questions">
             <p>Questions</p>
         </div>
-        <button id="answ1">A</button>
-        <button id="answ2">B</button>
-        <button id="answ3">C</button>
-        <button id="answ4">D</button>
+        <button id="A">A</button>
+        <button id="B">B</button>
+        <button id="C">C</button>
+        <button id="D">D</button>
+        <div id="answer"></div>
     </div>
+    <div id="hsname"></div>
+    <div id="finalscore">Final score:</div>
     <script src="./index.js"></script>
 </body>
 

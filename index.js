@@ -5,11 +5,13 @@ const start = document.getElementById("start");
 const startbtn = document.getElementById("startbtn");
 const quiz = document.getElementById("quiz");
 const renderquestions = document.getElementById("questions");
-const BtnA = document.getElementById("answ1");
-const BtnB = document.getElementById("answ2");
-const BtnC = document.getElementById("answ3");
-const BtnD = document.getElementById("answ4");
-
+const BtnA = document.getElementById("A");
+const BtnB = document.getElementById("B");
+const BtnC = document.getElementById("C");
+const BtnD = document.getElementById("D");
+const hsname = document.getElementById("hsname");
+const finalscore = document.getElementById("finalscore");
+const answer = document.getElementById("answer");
 
 
 function startQuiz() {
@@ -24,7 +26,7 @@ var timerfunct = setInterval(function () {
     var now = d.getTime();
     var timeleft = date - now;
     //console.log(timeleft);
-    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    var seconds = Math.floor((timeleft % (10 * 60)) / 10);
     console.log(seconds);
 
     document.getElementById("timer").innerHTML = "Time left:" + seconds + "s"
@@ -44,7 +46,7 @@ const questions = [
         choiceB: "False &lt;p&gt;",
         choiceC: "False &lt;div&gt;",
         choiceD: "None of the above",
-        correctAnswer: "answ1"
+        correctAnswer: "A"
     },
     {
         question: "What is used for front end of a web page?",
@@ -52,7 +54,7 @@ const questions = [
         choiceB: "HTML, CSS",
         choiceC: "Doordash",
         choiceD: "Bootstrap",
-        correctAnswer: "answ2"
+        correctAnswer: "B"
     },
     {
         question: "What HTML tags are JavaScript code wrapped in?",
@@ -60,7 +62,7 @@ const questions = [
         choiceB: "&lt;link&gt;",
         choiceC: "&lt;head&gt;",
         choiceD: "&lt;script&gt;",
-        correctAnswer: "answ4"
+        correctAnswer: "D"
     },
     {
         question: "Where do you maintain your repositories in the course?",
@@ -68,7 +70,7 @@ const questions = [
         choiceB: "git lab",
         choiceC: "my usb",
         choiceD: "Github, my pc & gitlab",
-        correctAnswer: "answ4"
+        correctAnswer: "D"
     },
     {
         question: "What is the best search engine on the internet?",
@@ -76,7 +78,7 @@ const questions = [
         choiceB: "Facebook",
         choiceC: "Tiktok",
         choiceD: "Ford",
-        correctAnswer: "answ1"
+        correctAnswer: "A"
     },
     {
         question: "How do you upload your files to git hub on the terminal?",
@@ -84,7 +86,7 @@ const questions = [
         choiceB: "send whatsapp to git hub",
         choiceC: "git init - git add - git commit",
         choiceD: "call git hub",
-        correctAnswer: "answ3"
+        correctAnswer: "C"
     },
     {
         question: "What does HTML stand for?",
@@ -92,23 +94,24 @@ const questions = [
         choiceB: "Hyper Text Marketing Language",
         choiceC: "Hyper Text Markup Language",
         choiceD: "Hyper Text Markup Leveler",
-        correctAnswer: "answ3"
+        correctAnswer: "C"
     },
 
 ];
 const Finalquestionsi = questions.length;
 var score = 0;
 var indexquestions = 0;
-var correct;
+const currentquestion = questions[indexquestions];
+
 // function to create the questions & answers
 function generateQuestion() {
     console.log("finalquestionsindex", Finalquestionsi);
     console.log("indexquest", indexquestions);
-    if (indexquestions === Finalquestionsi) {
-        return showScore();
-    }
-    let currentquestion = questions[indexquestions];
     console.log("currentquestion", currentquestion);
+    console.log("question", currentquestion.question);
+
+
+
     renderquestions.innerHTML = "<p>" + currentquestion.question + "</p>";
     BtnA.innerHTML = currentquestion.choiceA;
     BtnA.addEventListener("click", reviewanswers);
@@ -120,17 +123,23 @@ function generateQuestion() {
     BtnD.addEventListener("click", reviewanswers);
 };
 function reviewanswers(answer) {
+    let answers = answer.path[0].id;
+    //const selRange = answer.currentquestion;
+    correct = currentquestion.correctAnswer;
+    console.log("answers", answer.path[0].id);
+    console.log("correct", correct);
 
-    correct = questions[0].correctAnswer;
-    console.log("answers", correct);
-    if (answer === correct) {
+    if (indexquestions === Finalquestionsi) {
+        return showScore();
+    }
+    if (answers === correct) {
         score++;
         alert("That is the correct answer");
         indexquestions++;
         generateQuestion();
         //alert window of incorrect answer
-    } else if (answer !== correct) {
-        alert("WROOOOOONG!!")
+    } else if (answers !== correct) {
+        alert("The answer is WROOOOOONG!!")
         indexquestions++;
         generateQuestion();
 
@@ -138,12 +147,29 @@ function reviewanswers(answer) {
         showScore();
     }
 }
+//highscore.addEventListener("click", showScore());
 function showScore() {
-    questions.style.display = "none"
+
+
     clearInterval(timerfunct);
-    initials.value = "";
+    hsname.value = "";
     finalscore.innerHTML = "Your score is: " + score + " out of " + questions.length;
+    if (hsname.value === "") {
+        alert("Write your name");
+        return false;
+    } else {
+        var savedHs = JSON.parse(localStorage.getItem("savedhs")) || [];
+        const currentUser = initials.value.trim();
+        var newHs = {
+            name: currentUser,
+            score: score
+        };
+        savedHs.push(newHs);
+        localStorage.setItem("savedHs", JSON.stringify(savedHs));
+        generatehs();
+    }
 }
+
 
 
 start.addEventListener("click", startQuiz);
