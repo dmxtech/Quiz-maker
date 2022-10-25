@@ -70,46 +70,46 @@ const questions = [
         choiceD: "Bootstrap",
         correctAnswer: "B"
     },
-    // {
-    //     question: "What HTML tags are JavaScript code wrapped in?",
-    //     choiceA: "&lt;div&gt;",
-    //     choiceB: "&lt;link&gt;",
-    //     choiceC: "&lt;head&gt;",
-    //     choiceD: "&lt;script&gt;",
-    //     correctAnswer: "D"
-    // },
-    // {
-    //     question: "Where do you maintain your repositories in the course?",
-    //     choiceA: "my pc",
-    //     choiceB: "git lab",
-    //     choiceC: "my usb",
-    //     choiceD: "Github, my pc & gitlab",
-    //     correctAnswer: "D"
-    // },
-    // {
-    //     question: "What is the best search engine on the internet?",
-    //     choiceA: "Google",
-    //     choiceB: "Facebook",
-    //     choiceC: "Tiktok",
-    //     choiceD: "Ford",
-    //     correctAnswer: "A"
-    // },
-    // {
-    //     question: "How do you upload your files to git hub on the terminal?",
-    //     choiceA: "email git hub",
-    //     choiceB: "send whatsapp to git hub",
-    //     choiceC: "git init - git add - git commit",
-    //     choiceD: "call git hub",
-    //     correctAnswer: "C"
-    // },
-    // {
-    //     question: "What does HTML stand for?",
-    //     choiceA: "Hyper Trainer Marking Language",
-    //     choiceB: "Hyper Text Marketing Language",
-    //     choiceC: "Hyper Text Markup Language",
-    //     choiceD: "Hyper Text Markup Leveler",
-    //     correctAnswer: "C"
-    // },
+    {
+        question: "What HTML tags are JavaScript code wrapped in?",
+        choiceA: "&lt;div&gt;",
+        choiceB: "&lt;link&gt;",
+        choiceC: "&lt;head&gt;",
+        choiceD: "&lt;script&gt;",
+        correctAnswer: "D"
+    },
+    {
+        question: "Where do you maintain your repositories in the course?",
+        choiceA: "my pc",
+        choiceB: "git lab",
+        choiceC: "my usb",
+        choiceD: "Github, my pc & gitlab",
+        correctAnswer: "D"
+    },
+    {
+        question: "What is the best search engine on the internet?",
+        choiceA: "Google",
+        choiceB: "Facebook",
+        choiceC: "Tiktok",
+        choiceD: "Ford",
+        correctAnswer: "A"
+    },
+    {
+        question: "How do you upload your files to git hub on the terminal?",
+        choiceA: "email git hub",
+        choiceB: "send whatsapp to git hub",
+        choiceC: "git init - git add - git commit",
+        choiceD: "call git hub",
+        correctAnswer: "C"
+    },
+    {
+        question: "What does HTML stand for?",
+        choiceA: "Hyper Trainer Marking Language",
+        choiceB: "Hyper Text Marketing Language",
+        choiceC: "Hyper Text Markup Language",
+        choiceD: "Hyper Text Markup Leveler",
+        correctAnswer: "C"
+    },
 
 ];
 let Finalquestionsi = questions.length;
@@ -211,6 +211,8 @@ function getScore() {
     showhs.innerHTML = highscores;
     console.log("highscore", highscores);
     for (i = 0; i < highscores.length; i++) {
+
+        console.log("highscores[i]", highscores[i]);
         var scorespan = document.createElement("li");
         console.log("scorespan", scorespan);
         scorespan.textContent = highscores[i].name;
