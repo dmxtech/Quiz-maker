@@ -11,33 +11,43 @@ const BtnC = document.getElementById("C");
 const BtnD = document.getElementById("D");
 const hsname = document.getElementById("hsname");
 const finalscore = document.getElementById("finalscore");
-
+const showhs = document.getElementById("showhs");
 //const answer = document.getElementById("answer");
 
-
+quiz.style.display = "none";
+//finalscore.style.display = "none";
 function startQuiz() {
+    quiz.style.display = "inline";
+    finalscore.style.display = "inline";
+    //clearInterval(timerfunct);
     start.style.display = "none";
+
     generateQuestion();
+
+    //Todays date 
+    var timerfunct = setInterval(function () {
+        // var d = ;
+
+        let date = new Date("Jan 5, 2024 15:37:25").getTime();
+        //document.getElementById("date").innerHTML = date;
+        var now = new Date().getTime();
+        var timeleft = date - now;
+        //console.log(timeleft);
+        var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+        //console.log(seconds);
+        //console.log(timeleft);
+
+        document.getElementById("timer").innerHTML = "Time left:" + seconds + "s"
+        if (seconds === 0) {
+            clearInterval(timerfunct);
+            //document.getElementById("timer").innerHTML = ""
+            document.getElementById("timer").innerHTML = "TIME IS UP!!";
+            start.style.display = "none";
+            quiz.style.display = "none";
+
+        }
+    }, 1000)
 }
-//Todays date 
-var timerfunct = setInterval(function () {
-    var d = new Date();
-    let date = d.getTime();
-    document.getElementById("date").innerHTML = d;
-    var now = d.getTime();
-    var timeleft = date - now;
-    //console.log(timeleft);
-    var seconds = Math.floor((timeleft % (10 * 60)) / 10);
-    console.log(seconds);
-
-    document.getElementById("timer").innerHTML = "Time left:" + seconds + "s"
-    if (timeleft === 10) {
-        clearInterval(timerfunct);
-        document.getElementById("timer").innerHTML = ""
-        document.getElementById("end").innerHTML = "TIME UP!!";
-    }
-}, 1000)
-
 // Question, answers & correct answers
 const questions = [
 
@@ -159,7 +169,7 @@ function reviewanswers(answer) {
 //highscore.addEventListener("click", showScore());
 function showScore() {
     quiz.style.display = "none";
-    clearInterval(timerfunct);
+    //clearInterval(timerfunct);
     let scorename;
     let currentuser = prompt("GAMEOVER , Please enter your name:", "Harry Potter");
 
@@ -176,14 +186,19 @@ function showScore() {
     console.log("finalscore", score);
     console.log("hsname", hsname);
     hsname.innerHTML = scorename;
-    const scoredata = { currentuser, score };
-    localStorage.setItem(currentuser, score);
+    const scoredata = {
+        name: currentuser,
+        result: score
+    };
+    //localStorage.setItem(currentuser, score);
+    localStorage.setItem('scoredata', JSON.stringify(scoredata));
 }
 
-function getScore(scoredata) {
-    JSON.parse(highscore.localStorage.getItem(scoredata));
+function getScore() {
+    JSON.parse(hsname.localStorage.getItem('scoredata'));
     //const viewhs = JSON.parse(localStorage.getItem(currentuser, score));
     // $("#hr9 .Description").val(localStorage.getItem("hr9"));
+    console.log("scoredata", hsname);
     console.log("highscore", highscore);
     //console.log("viewhs", viewhs);
 }
