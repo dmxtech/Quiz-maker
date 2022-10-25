@@ -158,34 +158,53 @@ function reviewanswers(answer) {
 }
 //highscore.addEventListener("click", showScore());
 function showScore() {
+    quiz.style.display = "none";
     clearInterval(timerfunct);
-    let hsname;
-    let currentuser = prompt("GAME OVER", "Please enter your name:", "Harry Potter");
+    let scorename;
+    let currentuser = prompt("GAMEOVER , Please enter your name:", "Harry Potter");
 
 
     finalscore.innerHTML = "Your score is: " + score + " out of " + questions.length;
 
 
     if (currentuser == null || currentuser == "") {
-        hsname = "User cancelled the prompt.";
+        scorename = "User cancelled the prompt.";
     } else {
-        hsname = "Hello " + currentuser + "! Thanks for your answers";
+        scorename = "Hello " + currentuser + "! Thanks for your answers";
     }
     console.log("currentuser", currentuser);
-    console.log("finalscore", finalscore);
+    console.log("finalscore", score);
     console.log("hsname", hsname);
-    hsname.innerHTML = "Name:" + currentuser;
+    hsname.innerHTML = scorename;
+    const scoredata = { currentuser, score };
     localStorage.setItem(currentuser, score);
 }
 
-function getScore() {
-
-
+function getScore(scoredata) {
+    JSON.parse(highscore.localStorage.getItem(scoredata));
+    //const viewhs = JSON.parse(localStorage.getItem(currentuser, score));
+    // $("#hr9 .Description").val(localStorage.getItem("hr9"));
+    console.log("highscore", highscore);
+    //console.log("viewhs", viewhs);
 }
-
-
-
+highscore.addEventListener("click", getScore);
 start.addEventListener("click", startQuiz);
+
+
+
+
+
+//     const scoredata = { currentuser, score };
+    //     const NO_OF_HIGH_SCORES = 10;
+    //     const HIGH_SCORES = 'highScores';
+    //     const highScoreString = localStorage.getItem(HIGH_SCORES);
+    //     const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
+    //   const lowestScore = highScores[NO_OF_HIGH_SCORES - 1]?.score ?? 0;
+    //     if (score > lowestScore) {
+    //         saveHighScore(score, highScores); // TODO
+    //         showHighScores(); // TODO
+    //     }
+
 
 
 
