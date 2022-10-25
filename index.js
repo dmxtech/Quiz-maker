@@ -11,6 +11,7 @@ const BtnC = document.getElementById("C");
 const BtnD = document.getElementById("D");
 const hsname = document.getElementById("hsname");
 const finalscore = document.getElementById("finalscore");
+
 //const answer = document.getElementById("answer");
 
 
@@ -157,25 +158,29 @@ function reviewanswers(answer) {
 }
 //highscore.addEventListener("click", showScore());
 function showScore() {
-
-
     clearInterval(timerfunct);
-    hsname.value = "";
+    let hsname;
+    let currentuser = prompt("GAME OVER", "Please enter your name:", "Harry Potter");
+
+
     finalscore.innerHTML = "Your score is: " + score + " out of " + questions.length;
-    if (hsname.value === "") {
-        alert("Write your name");
-        return false;
+
+
+    if (currentuser == null || currentuser == "") {
+        hsname = "User cancelled the prompt.";
     } else {
-        var savedHs = JSON.parse(localStorage.getItem("savedhs")) || [];
-        const currentUser = initials.value.trim();
-        var newHs = {
-            name: currentUser,
-            score: score
-        };
-        savedHs.push(newHs);
-        localStorage.setItem("savedHs", JSON.stringify(savedHs));
-        generatehs();
+        hsname = "Hello " + currentuser + "! Thanks for your answers";
     }
+    console.log("currentuser", currentuser);
+    console.log("finalscore", finalscore);
+    console.log("hsname", hsname);
+    hsname.innerHTML = "Name:" + currentuser;
+    localStorage.setItem(currentuser, score);
+}
+
+function getScore() {
+
+
 }
 
 
@@ -187,3 +192,20 @@ start.addEventListener("click", startQuiz);
 
 
 
+
+
+// if (hsname.value === "") {
+//     alert("Write your name in the box");
+//     return false;
+// } else {
+//     var savedHs = JSON.parse(localStorage.getItem("savedhs")) || [];
+//     const currentUser = initials.value.trim();
+//     var newHs = {
+//         name: currentUser,
+//         score: score
+//     };
+//     savedHs.push(newHs);
+//     localStorage.setItem("savedHs", JSON.stringify(savedHs));
+//     generatehs();
+// }
+//}
