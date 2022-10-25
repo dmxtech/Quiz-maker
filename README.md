@@ -37,7 +37,7 @@
   
   https://dmxtech.github.io/Quiz-maker/
 
-  https://github.com/dmxtech/Coding-Quiz
+  https://github.com/dmxtech/Quiz-maker
   ## learned
   Javascript
 
