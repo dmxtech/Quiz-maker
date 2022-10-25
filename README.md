@@ -29,9 +29,15 @@
 
   ## motivation
   I wanted to learn javascript furthermore
-## Link 
+  
+  ## screenshot
 
+  https://snipboard.io/VbvewS.jpg
+  ## Site is live at 
+  
+  https://dmxtech.github.io/Quiz-maker/
 
+  https://github.com/dmxtech/Coding-Quiz
   ## learned
   Javascript
 
