@@ -11,7 +11,7 @@ const BtnC = document.getElementById("C");
 const BtnD = document.getElementById("D");
 const hsname = document.getElementById("hsname");
 const finalscore = document.getElementById("finalscore");
-const answer = document.getElementById("answer");
+//const answer = document.getElementById("answer");
 
 
 function startQuiz() {
@@ -98,40 +98,48 @@ const questions = [
     },
 
 ];
-const Finalquestionsi = questions.length;
-var score = 0;
-var indexquestions = 0;
-const currentquestion = questions[indexquestions];
+let Finalquestionsi = questions.length;
+let score = 0;
+let indexquestions = [0];
+let currentquestion = questions[indexquestions];
 
 // function to create the questions & answers
 function generateQuestion() {
     console.log("finalquestionsindex", Finalquestionsi);
     console.log("indexquest", indexquestions);
+    console.log("questions", questions[1]);
     console.log("currentquestion", currentquestion);
     console.log("question", currentquestion.question);
 
+    //let i, len, text;
+    // for (i = 0, len = currentquestion.length, text = ""; i < len; i++) {
+    if (indexquestions === Finalquestionsi) {
+        return showScore();
+    }
+
+    renderquestions.innerHTML = "<p>" + questions[indexquestions].question + "</p>";
 
 
-    renderquestions.innerHTML = "<p>" + currentquestion.question + "</p>";
-    BtnA.innerHTML = currentquestion.choiceA;
+
+    BtnA.innerHTML = questions[indexquestions].choiceA;
     BtnA.addEventListener("click", reviewanswers);
-    BtnB.innerHTML = currentquestion.choiceB;
+    BtnB.innerHTML = questions[indexquestions].choiceB;
     BtnB.addEventListener("click", reviewanswers);
-    BtnC.innerHTML = currentquestion.choiceC;
+    BtnC.innerHTML = questions[indexquestions].choiceC;
     BtnC.addEventListener("click", reviewanswers);
-    BtnD.innerHTML = currentquestion.choiceD;
+    BtnD.innerHTML = questions[indexquestions].choiceD;
     BtnD.addEventListener("click", reviewanswers);
+
+
 };
 function reviewanswers(answer) {
     let answers = answer.path[0].id;
     //const selRange = answer.currentquestion;
-    correct = currentquestion.correctAnswer;
+    correct = questions[indexquestions].correctAnswer;
     console.log("answers", answer.path[0].id);
     console.log("correct", correct);
 
-    if (indexquestions === Finalquestionsi) {
-        return showScore();
-    }
+
     if (answers === correct) {
         score++;
         alert("That is the correct answer");
